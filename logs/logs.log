@@ -40,3 +40,129 @@
 2022-02-19 13:39:44 DEBUG OsService:40 - Properties are loaded 
 2022-02-19 13:39:44 DEBUG OsService:41 - OS Version: windows 11
 2022-02-19 13:39:44 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:18:01 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:18:01 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:18:01 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:18:01 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:18:48 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:18:48 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:18:48 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:18:48 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:19:06 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:19:06 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:19:06 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:19:06 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:19:23 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:19:23 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:19:23 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:19:23 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:19:50 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:19:50 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:19:50 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:19:50 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:20:50 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:20:50 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:20:50 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:20:50 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:20:50 ERROR ImageApi:38 - cv::Exception: OpenCV(4.5.5) C:\build\master_winpack-bindings-win64-vc14-static\opencv\modules\imgcodecs\src\loadsave.cpp:730: error: (-2:Unspecified error) could not find a writer for the specified extension in function 'cv::imwrite_'
+
+2022-02-19 14:21:27 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:21:27 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:21:27 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:21:27 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:23:40 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:23:40 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:23:40 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:23:40 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:24:00 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:24:00 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:24:00 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:24:00 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:25:30 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:25:30 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:25:30 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:25:30 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:26:42 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:26:42 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:26:42 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:26:42 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:26:59 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:26:59 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:26:59 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:26:59 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:27:17 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:27:17 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:27:17 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:27:17 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:27:53 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:27:53 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:27:53 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:27:53 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:28:09 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:28:09 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:28:09 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:28:09 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:28:28 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:28:28 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:28:28 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:28:28 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:28:45 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:28:45 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:28:45 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:28:45 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:29:14 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:29:14 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:29:14 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:29:14 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:29:35 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:29:35 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:29:35 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:29:35 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:29:42 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:29:42 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:29:42 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:29:42 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:30:37 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:30:37 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:30:37 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:30:37 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:31:21 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:31:21 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:31:21 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:31:21 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:31:27 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:31:27 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:31:27 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:31:27 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:31:28 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:31:28 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:31:28 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:31:28 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:32:10 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:32:10 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:32:10 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:32:10 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:32:41 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:32:41 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:32:41 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:32:41 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:33:03 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:33:03 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:33:03 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:33:03 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:33:50 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:33:50 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:33:50 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:33:50 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:34:01 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:34:01 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:34:01 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:34:01 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:34:09 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:34:09 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:34:09 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:34:09 DEBUG OsService:42 - Open CV version - 4.5.5
+2022-02-19 14:34:17 INFO  OsService:30 - Checking OS.....
+2022-02-19 14:34:17 DEBUG OsService:40 - Properties are loaded 
+2022-02-19 14:34:17 DEBUG OsService:41 - OS Version: windows 11
+2022-02-19 14:34:17 DEBUG OsService:42 - Open CV version - 4.5.5
