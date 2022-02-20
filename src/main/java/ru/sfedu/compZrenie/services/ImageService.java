@@ -1,9 +1,9 @@
-package ru.sfedu.compZrenie.api;
+package ru.sfedu.compZrenie.services;
 
 import lombok.extern.log4j.Log4j2;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
-import ru.sfedu.compZrenie.services.OsService;
+import org.opencv.imgproc.Imgproc;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,29 +11,36 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 
 @Log4j2
-public class ImageApi {
+public class ImageService {
 
   private static final int IMG_FRAME_PADDING = 100;
-  private static ImageApi INSTANCE;
+  private static ImageService INSTANCE;
 
-  public static ImageApi getInstance() {
+  public static ImageService getInstance() {
     if (INSTANCE == null) {
-      INSTANCE = new ImageApi();
+      INSTANCE = new ImageService();
     }
     return INSTANCE;
   }
 
-  private ImageApi() {
+  private ImageService() {
     OsService.load();
   }
 
   public Mat readImageMatrix(String path, String fileName) {
-    return Imgcodecs.imread(path + fileName, Imgcodecs.IMREAD_COLOR);
+    return Imgcodecs.imread(getImagePath(path, fileName), Imgcodecs.IMREAD_COLOR);
+  }
+
+  public Mat readGrayImageMatrix(String path, String fileName) {
+    Mat img = this.readImageMatrix(path, fileName);
+    Mat dst = new Mat();
+    Imgproc.cvtColor(img, dst, Imgproc.COLOR_BGR2GRAY);
+    return dst;
   }
 
   public void writeImageMatrix(String path, String fileName, Mat mat) {
     try {
-      Imgcodecs.imwrite(getNewImagePath(path + fileName), mat);
+      Imgcodecs.imwrite(getNewImagePath(getImagePath(path, fileName)), mat);
     } catch (Exception e) {
       log.error(e.getMessage());
     }
@@ -62,6 +69,10 @@ public class ImageApi {
     frame.add(jLabel);
     frame.setVisible(true);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  }
+
+  private String getImagePath(String path, String fileName) {
+    return String.format("%s\\%s", path, fileName);
   }
 
   private String getNewImagePath(String base) {

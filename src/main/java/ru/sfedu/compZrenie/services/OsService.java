@@ -11,7 +11,7 @@ import java.util.Locale;
 @Log4j2
 public class OsService {
 
-  private final String OS = System.getProperty("os.name", "generic").toLowerCase(Locale.ENGLISH);
+  private static final String OS = System.getProperty("os.name", "generic").toLowerCase(Locale.ENGLISH);
   private static OsService INSTANCE;
 
   public static OsService getInstance() {
