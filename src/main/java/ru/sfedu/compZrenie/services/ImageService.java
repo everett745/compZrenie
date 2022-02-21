@@ -71,6 +71,18 @@ public class ImageService {
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
+  public void dropMatrixChannel(Mat image, int chanel) {
+    int totalBytes = (int) (image.total() * image.elemSize());
+    byte[] buffer = new byte[totalBytes];
+    image.get(0, 0, buffer);
+    for (int i = 0; i < totalBytes; i++) {
+      if (i % chanel == 0) {
+        buffer[i] = 0;
+      }
+    }
+    image.put(0, 0, buffer);
+  }
+
   private String getImagePath(String path, String fileName) {
     return String.format("%s\\%s", path, fileName);
   }

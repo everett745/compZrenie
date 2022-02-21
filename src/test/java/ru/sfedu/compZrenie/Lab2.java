@@ -26,10 +26,13 @@ public class Lab2 {
 
   @Test
   public void getImageMatrix() {
-    Mat imageMatrix = imageService.readImageMatrix(TEST_DATA_PATH, TEST_IMAGE_NAME);
-    imageService.showImage(imageMatrix);
-    imageService.writeImageMatrix(TEST_RESULT_PATH, "lab2", imageMatrix);
-    assertTimeout(Duration.ofSeconds(5), () -> delaySecond(1));
+    Mat image = imageService.readImageMatrix(TEST_DATA_PATH, TEST_IMAGE_NAME);
+    imageService.showImage(image);
+    imageService.dropMatrixChannel(image, 5);
+    imageService.showImage(image);
+    imageService.writeImageMatrix(TEST_RESULT_PATH, "lab2.jpg", image);
+
+    assertTimeout(Duration.ofSeconds(5), () -> delaySecond(3));
   }
 
   void delaySecond(int second) {
