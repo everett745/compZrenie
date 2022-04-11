@@ -22,6 +22,11 @@ public class ImageConvertorService {
     OsService.load();
   }
 
+  private double dImageScale(Mat img) {
+    double d = Math.sqrt(img.width()*img.width() + img.height()*img.height());
+    return Math.min(img.width(), img.height()) / d;
+  }
+
   public Mat sobelX(Mat mat) {
     Mat converted = new Mat();
     Imgproc.Sobel(mat, converted, CvType.CV_32F, 1, 0);
@@ -95,7 +100,7 @@ public class ImageConvertorService {
    * @param shaving crop the image if it is larger than the original size
    */
   public Mat rotation(Mat img, int angle, boolean shaving) {
-    Point center = new Point(img.width() / 2, img.height() / 2);
+    Point center = new Point(img.width() >> 1, img.height() >> 2);
     Mat rotationMat = Imgproc.getRotationMatrix2D(
             center,
             angle,
@@ -138,9 +143,46 @@ public class ImageConvertorService {
     return dst;
   }
 
-  private double dImageScale(Mat img) {
-    double d = Math.sqrt(img.width()*img.width() + img.height()*img.height());
-    return Math.min(img.width(), img.height()) / d;
+  public Mat baseBlur(Mat src, Size kSize) {
+    Mat dst = new Mat();
+    Imgproc.blur(src, dst, kSize, new Point(-1, -1));
+    return dst;
+  }
+
+  public Mat gaussianBlur(Mat src, Size ksize, double sigmaX, double sigmaY, int borderType) {
+    Mat dst = new Mat();
+    Imgproc.GaussianBlur(src, dst, ksize, sigmaX, sigmaY, borderType);
+    return dst;
+  }
+
+  public Mat medianBlur(Mat src, int ksize) {
+    Mat dst = new Mat();
+    Imgproc.medianBlur(src, dst, ksize);
+    return dst;
+  }
+
+  public Mat bilateralFilter(Mat src, int d, double sigmaColor, double sigmaSpace, int borderType) {
+    Mat dst = new Mat();
+    Imgproc.bilateralFilter(src, dst, d, sigmaColor, sigmaSpace, borderType);
+    return dst;
+  }
+
+  public Mat dilate(Mat src, Mat morphEllipse) {
+    Mat dst = src.clone();
+    Imgproc.dilate(src, dst, morphEllipse);
+    return dst;
+  }
+
+  public Mat morphGradient(Mat src, Mat morph) {
+    Mat dst = src.clone();
+    Imgproc.morphologyEx(src, dst, Imgproc.MORPH_GRADIENT, morph);
+    return dst;
+  }
+
+  public Mat morphBlackHat(Mat src, Mat morph) {
+    Mat dst = src.clone();
+    Imgproc.morphologyEx(src, dst, Imgproc.MORPH_BLACKHAT, morph);
+    return dst;
   }
 
 }

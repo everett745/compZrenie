@@ -158,6 +158,12 @@ public class Lab3 {
             "rotation",
             imageConvertorService.rotation(this.testImage, 45, false)
     );
+
+    imageService.writeImageMatrix(
+            TEST_RESULT_PATH,
+            "rotation_shave",
+            imageConvertorService.rotation(this.testImage, 45, true)
+    );
   }
 
   @Test
