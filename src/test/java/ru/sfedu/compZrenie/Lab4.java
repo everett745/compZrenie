@@ -40,35 +40,33 @@ public class Lab4 {
 
   @Test
   void baseBlur() {
-    Size size = new Size(15, 15);
-    imageService.writeImageMatrix(
-            TEST_RESULT_PATH,
-            "baseblur_15",
-            imageConvertorService.baseBlur(testImage, size)
-    );
+    makeBaseBlur(3);
+    makeBaseBlur(5);
+    makeBaseBlur(7);
+  }
 
-    Size size50 = new Size(50, 50);
+  void makeBaseBlur(int w) {
+    Size size = new Size(w, w);
     imageService.writeImageMatrix(
             TEST_RESULT_PATH,
-            "baseblur_50",
-            imageConvertorService.baseBlur(testImage, size50)
+            "baseblur_" + w,
+            imageConvertorService.baseBlur(testImage, size)
     );
   }
 
   @Test
   void gaussianBlur() {
-    Size size = new Size(11, 11);
-    imageService.writeImageMatrix(
-            TEST_RESULT_PATH,
-            "gaussianblur_11",
-            imageConvertorService.gaussianBlur(testImage, size, 90, 90, 2)
-    );
+    gaussianBlur(3);
+    gaussianBlur(5);
+    gaussianBlur(7);
+  }
 
-    Size size21 = new Size(21, 21);
+  void gaussianBlur(int x) {
+    Size size = new Size(x, x);
     imageService.writeImageMatrix(
             TEST_RESULT_PATH,
-            "gaussianblur_21",
-            imageConvertorService.gaussianBlur(testImage, size21, 10, 10, 2)
+            "gaussianblur_" + x,
+            imageConvertorService.gaussianBlur(testImage, size, 90, 90, 2)
     );
   }
 

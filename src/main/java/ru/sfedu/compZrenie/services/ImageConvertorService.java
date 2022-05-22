@@ -3,12 +3,15 @@ package ru.sfedu.compZrenie.services;
 import lombok.extern.log4j.Log4j2;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.photo.Photo;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Log4j2
 public class ImageConvertorService {
 
+  public static final int MAX_COLOR = 255;
   private static ImageConvertorService INSTANCE;
 
   public static ImageConvertorService getInstance() {
@@ -23,6 +26,11 @@ public class ImageConvertorService {
   }
 
   private double dImageScale(Mat img) {
+    double d = Math.sqrt(img.width()*img.width() + img.height()*img.height());
+    return Math.min(img.width(), img.height()) / d;
+  }
+
+  private double dImageScale2(Mat img) {
     double d = Math.sqrt(img.width()*img.width() + img.height()*img.height());
     return Math.min(img.width(), img.height()) / d;
   }
@@ -100,11 +108,11 @@ public class ImageConvertorService {
    * @param shaving crop the image if it is larger than the original size
    */
   public Mat rotation(Mat img, int angle, boolean shaving) {
-    Point center = new Point(img.width() >> 1, img.height() >> 2);
+    Point center = new Point(img.width() / 2, img.height() / 2);
     Mat rotationMat = Imgproc.getRotationMatrix2D(
             center,
             angle,
-            shaving ? 1 : dImageScale(img)
+            shaving ? 1 : dImageScale2(img)
     );
     Mat dst = new Mat();
 
@@ -183,6 +191,159 @@ public class ImageConvertorService {
     Mat dst = src.clone();
     Imgproc.morphologyEx(src, dst, Imgproc.MORPH_BLACKHAT, morph);
     return dst;
+  }
+
+  public Scalar getRandomColor() {
+    Scalar fillColor;
+    Random random = new Random();
+    fillColor = new Scalar(
+            random.nextDouble(0, MAX_COLOR),
+            random.nextDouble(0, MAX_COLOR),
+            random.nextDouble(0, MAX_COLOR)
+    );
+    return fillColor;
+  }
+
+  public Mat fillFlood(Mat srcImage,
+                       Point startPoint,
+                       Scalar topColorBorder,
+                       Scalar bottomColorBorder) {
+    return fillFlood(srcImage, startPoint, null, topColorBorder, bottomColorBorder);
+  }
+
+  public Mat fillFlood(Mat srcImage,
+                       Point startPoint,
+                       Scalar fillColor,
+                       Scalar topColorBorder,
+                       Scalar bottomColorBorder) {
+    if (fillColor == null) {
+      fillColor = getRandomColor();
+    }
+    Imgproc.floodFill(
+            srcImage,
+            new Mat(),
+            startPoint,
+            fillColor,
+            new Rect(),
+            topColorBorder,
+            bottomColorBorder,
+            Imgproc.FLOODFILL_FIXED_RANGE
+    );
+    return srcImage;
+  }
+
+  public Mat pyramidDown(Mat srcImage, int amount) {
+    Mat result = new Mat();
+    if (amount > 0) {
+      Imgproc.pyrDown(srcImage, result);
+    }
+    for (int i = 1; i < amount; i++) {
+      Imgproc.pyrDown(result, result);
+    }
+    return result;
+  }
+
+  public Mat pyramidUp(Mat srcImage, int amount) {
+    Mat result = new Mat();
+    if (amount > 0) {
+      Imgproc.pyrUp(srcImage, result);
+    }
+    for (int i = 1; i < amount; i++) {
+      Imgproc.pyrUp(result, result);
+    }
+    return result;
+  }
+
+  public Mat makeImageGray(Mat srcImage) {
+    Mat grayImage = new Mat();
+    Imgproc.cvtColor(srcImage, grayImage, Imgproc.COLOR_BGR2GRAY);
+    return grayImage;
+  }
+
+  public Mat denoisedImage(Mat srcImage) {
+    Mat denoisedImage = new Mat();
+    Photo.fastNlMeansDenoising(srcImage, denoisedImage);
+    return denoisedImage;
+  }
+
+  public Mat histogramEqualization(Mat srcImage) {
+    Mat histogramEqualizationImage = new Mat();
+    Imgproc.equalizeHist(srcImage, histogramEqualizationImage);
+    return histogramEqualizationImage;
+  }
+
+  public Mat morphologicalOpening(Mat srcImage, double width, double height) {
+    Mat morphologicalOpeningImage = new Mat();
+    Mat kernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(width, height));
+    Imgproc.morphologyEx(srcImage, morphologicalOpeningImage,
+            Imgproc.MORPH_RECT, kernel);
+    return morphologicalOpeningImage;
+  }
+
+  public Mat subtractImages(Mat firstImage, Mat secondImage) {
+    Mat subtractImage = new Mat();
+    Core.subtract(firstImage, secondImage, subtractImage);
+    return subtractImage;
+  }
+
+  public AbstractMap.SimpleEntry<Mat, Double> thresholdImage(Mat srcImage) {
+    Mat thresholdImage = new Mat();
+    double threshold = Imgproc.threshold(srcImage, thresholdImage, 50, 255,
+            Imgproc.THRESH_OTSU);
+    return new AbstractMap.SimpleEntry<>(thresholdImage, threshold);
+  }
+
+  public Mat edgeImage(Mat srcImage, double threshold) {
+    Mat edgeImage = new Mat();
+    srcImage.convertTo(srcImage, CvType.CV_8U);
+    Imgproc.Canny(srcImage, edgeImage, threshold, threshold * 3, 3, true);
+    return edgeImage;
+  }
+
+  public Mat dilateImage(Mat srcImage) {
+    Mat dilatedImage = new Mat();
+    Mat kernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(5, 5));
+    Imgproc.dilate(srcImage, dilatedImage, kernel);
+    return dilatedImage;
+  }
+
+  public List<MatOfPoint> getContours(Mat srcImage) {
+    List<MatOfPoint> contours = new ArrayList<>();
+    Imgproc.findContours(srcImage, contours, new Mat(), Imgproc.RETR_TREE,
+            Imgproc.CHAIN_APPROX_SIMPLE);
+    contours.sort(Collections.reverseOrder(Comparator.comparing(Imgproc::contourArea)));
+    return contours;
+  }
+
+  public List<Mat> findRectangles(Mat image, double width, double height) {
+    int maxIndent = 15;
+
+    Mat grayImage = makeImageGray(image);
+    Mat denoisedImage = denoisedImage(grayImage);
+    Mat histogramEqualizedImage = histogramEqualization(denoisedImage);
+    Mat morphologicalOpenedImage = morphologicalOpening(histogramEqualizedImage, 5, 5);
+    Mat subtractedImage = subtractImages(histogramEqualizedImage, morphologicalOpenedImage);
+    AbstractMap.SimpleEntry<Mat, Double> threscholdedEntry = thresholdImage(subtractedImage);
+    Mat thresholdImage = threscholdedEntry.getKey();
+    double threshold = threscholdedEntry.getValue();
+    thresholdImage.convertTo(thresholdImage, CvType.CV_16SC1);
+    Mat edgeImage = edgeImage(thresholdImage, threshold);
+    Mat dilatedImage = dilateImage(edgeImage);
+    List<MatOfPoint> contours = getContours(dilatedImage);
+    return contours.stream().map(contour -> {
+              log.debug(Imgproc.contourArea(contour));
+              MatOfPoint2f point2f = new MatOfPoint2f();
+              MatOfPoint2f approxContour2f = new MatOfPoint2f();
+              MatOfPoint approxContour = new MatOfPoint();
+              contour.convertTo(point2f, CvType.CV_32FC2);
+              double arcLength = Imgproc.arcLength(point2f, true);
+              Imgproc.approxPolyDP(point2f, approxContour2f, 0.03 * arcLength, true);
+              approxContour2f.convertTo(approxContour, CvType.CV_32S);
+              Rect rect = Imgproc.boundingRect(approxContour);
+              return image.submat(rect);
+            })
+            .filter(mat -> Math.abs(mat.height() - height) < maxIndent && Math.abs(mat.width() - width) < maxIndent)
+            .collect(Collectors.toList());
   }
 
 }
