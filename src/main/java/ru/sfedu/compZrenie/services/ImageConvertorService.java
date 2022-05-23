@@ -4,6 +4,7 @@ import lombok.extern.log4j.Log4j2;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.photo.Photo;
+import java.util.AbstractMap.SimpleEntry;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -286,11 +287,11 @@ public class ImageConvertorService {
     return subtractImage;
   }
 
-  public AbstractMap.SimpleEntry<Mat, Double> thresholdImage(Mat srcImage) {
+  public SimpleEntry<Mat, Double> thresholdImage(Mat srcImage, double thresh, double maxValue) {
     Mat thresholdImage = new Mat();
-    double threshold = Imgproc.threshold(srcImage, thresholdImage, 50, 255,
+    double threshold = Imgproc.threshold(srcImage, thresholdImage, thresh, maxValue,
             Imgproc.THRESH_OTSU);
-    return new AbstractMap.SimpleEntry<>(thresholdImage, threshold);
+    return new SimpleEntry<>(thresholdImage, threshold);
   }
 
   public Mat edgeImage(Mat srcImage, double threshold) {
@@ -316,14 +317,14 @@ public class ImageConvertorService {
   }
 
   public List<Mat> findRectangles(Mat image, double width, double height) {
-    int maxIndent = 15;
+    int maxIndent = 10;
 
     Mat grayImage = makeImageGray(image);
     Mat denoisedImage = denoisedImage(grayImage);
     Mat histogramEqualizedImage = histogramEqualization(denoisedImage);
     Mat morphologicalOpenedImage = morphologicalOpening(histogramEqualizedImage, 5, 5);
     Mat subtractedImage = subtractImages(histogramEqualizedImage, morphologicalOpenedImage);
-    AbstractMap.SimpleEntry<Mat, Double> threscholdedEntry = thresholdImage(subtractedImage);
+    SimpleEntry<Mat, Double> threscholdedEntry = thresholdImage(subtractedImage, 50, 255);
     Mat thresholdImage = threscholdedEntry.getKey();
     double threshold = threscholdedEntry.getValue();
     thresholdImage.convertTo(thresholdImage, CvType.CV_16SC1);

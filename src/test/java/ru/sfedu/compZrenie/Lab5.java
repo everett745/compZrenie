@@ -16,6 +16,7 @@ public class Lab5 {
   private static final String TEST_DATA_PATH = Paths.get("src/test/java/res/assets").toAbsolutePath().toString();
   private static final String TEST_IMAGE_NAME1 = "testImage.jpg";
   private static final String TEST_IMAGE_NAME2 = "testImage2.jpg";
+  private static final String TEST_IMAGE_FIG = "fig.jpg";
 
   private static final String TEST_RESULT_PATH = Paths.get("src/test/java/res/lab5").toAbsolutePath().toString();
 
@@ -24,6 +25,7 @@ public class Lab5 {
 
   private Mat testImage;
   private Mat testImage2;
+  private Mat testImageFig;
 
   @BeforeAll
   public static void config() {
@@ -35,6 +37,7 @@ public class Lab5 {
   public void initTestImage() {
     this.testImage = imageService.readImageMatrix(TEST_DATA_PATH, TEST_IMAGE_NAME1);
     this.testImage2 = imageService.readImageMatrix(TEST_DATA_PATH, TEST_IMAGE_NAME2);
+    this.testImageFig = imageService.readImageMatrix(TEST_DATA_PATH, TEST_IMAGE_FIG);
   }
 
   @Test
@@ -81,8 +84,7 @@ public class Lab5 {
     );
   }
 
-  @Test
-  public void task3() {
+  Mat getImgWithFigures() {
     Mat img = new Mat(1000, 1000, CvType.CV_8UC3, new Scalar(255, 255, 255));
 
     Imgproc.rectangle(img, new Point(0, 0), new Point(100, 100),
@@ -91,6 +93,12 @@ public class Lab5 {
             imageConvertorService.getRandomColor(), Core.FILLED);
     Imgproc.rectangle(img, new Point(100, 150), new Point(500, 400),
             imageConvertorService.getRandomColor(), Core.FILLED);
+    return img;
+  }
+
+  @Test
+  public void task3() {
+    Mat img = getImgWithFigures(); // this.testImageFig;
 
     imageService.writeImageMatrix(TEST_RESULT_PATH, "rectangleSource", img);
 
@@ -98,7 +106,7 @@ public class Lab5 {
 
     rectangles.forEach(mat -> imageService.writeImageMatrix(TEST_RESULT_PATH, "rectangle" + mat.hashCode(), mat));
 
-    Assertions.assertEquals(2, rectangles.size());
+    Assertions.assertEquals(1, rectangles.size());
   }
 
 }
